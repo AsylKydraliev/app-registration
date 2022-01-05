@@ -12,6 +12,4 @@ import { Component } from '@angular/core';
     text-align: center;
   }`]
 })
-export class ApplicationComponent{
-
-}
+export class ApplicationComponent{}

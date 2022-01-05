@@ -41,6 +41,9 @@
         required
         ngModel
       >
+      <div class="form-text">
+        Enter the phone number in the format 0 XXX YYYYYY
+      </div>
     </div>
     <div class="mb-3 col-5">
       <input
@@ -53,8 +56,6 @@
       >
     </div>
     <div>
-      <label>T-shirt option</label>
-
       <div class="form-check mt-3">
         <input
           class="form-check-input"
@@ -103,14 +104,19 @@
         name="comments"
         required
         ngModel
+        maxlength="300"
+        (keyup)="onCount()"
       ></textarea>
       <label for="floatingTextarea">Comments</label>
+      <div class="form-text">
+        Characters: {{ textCounter }}
+      </div>
     </div>
 
     <button
-      routerLink="/application"
-      type="button"
+      type="submit"
       class="btn btn-success"
+      [disabled]="registerForm.invalid"
     >Submit</button>
   </form>
 </div>
