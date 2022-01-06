@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
     color: red;
   }`]
 })
-export class NotFountComponent{
+export class NotFoundcomponent{
 }

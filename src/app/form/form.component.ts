@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class FormComponent implements OnInit {
   @ViewChild('registerForm') registerForm!: NgForm;
   textCounter = 300;
+  count = 0;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -35,11 +36,15 @@ export class FormComponent implements OnInit {
     void this.router.navigate(['/application']);
   }
 
-  onCount(){
-    if(this.registerForm.value.comments.length){
-      this.textCounter-=1;
+  onCount() {
+    console.log(this.registerForm.value.comments.length);
+    console.log(this.count);
+    if (this.registerForm.value.comments.length + 1 >= this.count) {
+      this.count += 1;
+      this.textCounter -= 1;
     } else {
-      this.textCounter = 300;
+      this.count -= 1;
+      this.textCounter += 1;
     }
   }
 }

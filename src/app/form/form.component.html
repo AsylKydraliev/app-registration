@@ -10,7 +10,13 @@
         placeholder="Name"
         required
         ngModel
+        #nameInput="ngModel"
       >
+      <small
+        *ngIf="nameInput.touched && nameInput.errors?.required"
+        class="form-text invalid-form-text">
+        Enter your name
+      </small>
     </div>
     <div class="mb-3 col-5">
       <input
@@ -20,7 +26,13 @@
         placeholder="Surname"
         required
         ngModel
+        #surnameInput="ngModel"
       >
+      <small
+        *ngIf="surnameInput.touched && surnameInput.errors?.required"
+        class="form-text invalid-form-text">
+        Enter your surname
+      </small>
     </div>
     <div class="mb-3 col-5">
       <input
@@ -30,7 +42,13 @@
         placeholder="Patronymic"
         required
         ngModel
+        #patronymic="ngModel"
       >
+      <small
+        *ngIf="patronymic.touched && patronymic.errors?.required"
+        class="form-text invalid-form-text">
+        Enter your patronymic
+      </small>
     </div>
     <div class="mb-3 col-5">
       <input
@@ -40,9 +58,21 @@
         placeholder="Phone number"
         required
         ngModel
+        appPhone
+        #phoneInput="ngModel"
       >
+      <small
+        *ngIf="phoneInput.touched && phoneInput.errors?.required"
+        class="form-text invalid-form-text">
+        Enter your phone number
+      </small>
+      <small
+        *ngIf="phoneInput.touched && phoneInput.errors?.phoneNumber"
+        class="form-text invalid-form-text">
+        Enter valid phone number
+      </small>
       <div class="form-text">
-        Enter the phone number in the format 0 XXX YYYYYY
+        Enter the phone number in the format +996-XXX-YYYYYY
       </div>
     </div>
     <div class="mb-3 col-5">
@@ -53,7 +83,13 @@
         placeholder="Place of work or study"
         required
         ngModel
+        #workOrStudy="ngModel"
       >
+      <small
+        *ngIf="workOrStudy.touched && workOrStudy.errors?.required"
+        class="form-text invalid-form-text">
+        Enter your place of work or study
+      </small>
     </div>
     <div>
       <div class="form-check mt-3">
@@ -87,13 +123,25 @@
     </div>
 
     <div class="col-5 mb-3">
-      <select class="form-select" name="size" aria-label="Default select example" ngModel required>
+      <select
+        class="form-select"
+        name="size"
+        aria-label="Default select example"
+        ngModel
+        required
+        #sizeSelect="ngModel"
+      >
         <option value="">T-shirt size</option>
         <option value="s">S</option>
         <option value="m">M</option>
         <option value="l">L</option>
         <option value="xl">XL</option>
       </select>
+      <small
+        *ngIf="sizeSelect.touched && sizeSelect.errors?.required"
+        class="form-text invalid-form-text">
+        Select your size
+      </small>
     </div>
 
     <div class="form-floating col-8 mb-3">
@@ -105,8 +153,14 @@
         required
         ngModel
         maxlength="300"
-        (keyup)="onCount()"
+        (keydown)="onCount()"
+        #commentsText="ngModel"
       ></textarea>
+      <small
+        *ngIf="commentsText.touched && commentsText.errors?.required"
+        class="form-text invalid-form-text">
+        Enter your comments
+      </small>
       <label for="floatingTextarea">Comments</label>
       <div class="form-text">
         Characters: {{ textCounter }}
