@@ -18,11 +18,7 @@
       <p class="card-text m-0">Gender: <strong>{{ item.gender }}</strong></p>
       <p class="card-text m-0">Your size: <strong>{{ item.size }}</strong></p>
       <p class="card-text m-0">Your comments: <strong>{{ item.comments }}</strong></p>
-      <button *ngIf="editLoading" class="btn btn-danger" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        Loading...
-      </button>
-      <a *ngIf="!editLoading" [routerLink]="[item.id]" class="btn btn-primary">Edit application</a>&nbsp;
+      <a [routerLink]="[item.id]" class="btn btn-primary">Edit application</a>&nbsp;
       <button *ngIf="deleteLoading" class="btn btn-danger" type="button" disabled>
         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         Loading...

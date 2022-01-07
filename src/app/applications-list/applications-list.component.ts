@@ -13,10 +13,8 @@ export class ApplicationsListComponent implements OnInit, OnDestroy {
   applicationsSubscription!: Subscription;
   loadingSubscription!: Subscription;
   deleteSubscription!: Subscription;
-  editSubscription!: Subscription;
   loading = false;
   deleteLoading = false;
-  editLoading = false;
 
   constructor(private applicationService: ApplicationService) {}
 
@@ -30,9 +28,6 @@ export class ApplicationsListComponent implements OnInit, OnDestroy {
     this.deleteSubscription = this.applicationService.deleteLoading.subscribe((isDelete: boolean) => {
       this.deleteLoading = isDelete;
     })
-    this.editSubscription = this.applicationService.editLoading.subscribe((isEdit: boolean) => {
-      this.editLoading = isEdit;
-    })
     this.applicationService.getApplications();
   }
 
@@ -44,6 +39,5 @@ export class ApplicationsListComponent implements OnInit, OnDestroy {
     this.applicationsSubscription.unsubscribe();
     this.loadingSubscription.unsubscribe();
     this.deleteSubscription.unsubscribe();
-    this.editSubscription.unsubscribe();
   }
 }

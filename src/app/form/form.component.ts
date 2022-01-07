@@ -15,7 +15,6 @@ export class FormComponent implements OnInit{
   comments = 300;
   applicationId = '';
   application: Application | null = null;
-  loading = false;
 
   constructor(
     private applicationService: ApplicationService,
@@ -24,10 +23,6 @@ export class FormComponent implements OnInit{
     ) {}
 
   ngOnInit(){
-    this.applicationService.postLoading.subscribe((isLoading: boolean) => {
-      this.loading = isLoading;
-    })
-
     this.route.data.subscribe(data => {
       this.application = <Application | null>data.application;
       if(this.application){
