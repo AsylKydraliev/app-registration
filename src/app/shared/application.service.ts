@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Application } from './application.model';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -11,14 +11,23 @@ import { Subject } from 'rxjs';
 export class ApplicationService {
   applications: Application[] | null = null;
   applicationsChange = new Subject<Application[]>();
+  getLoading = new Subject<boolean>();
+  postLoading = new Subject<boolean>();
+  deleteLoading = new Subject<boolean>();
+  editLoading = new Subject<boolean>();
+
   constructor(private http: HttpClient) {}
 
   postApplication(application: Application){
+    this.postLoading.next(true);
     this.http.post('https://app-blog-f76a2-default-rtdb.firebaseio.com/application.json', application)
-      .subscribe()
+      .subscribe(() => {
+        this.postLoading.next(false);
+      })
   }
 
   getApplications(){
+    this.getLoading.next(true);
     this.http.get<{[id: string]:Application}>
     ('https://app-blog-f76a2-default-rtdb.firebaseio.com/application.json').pipe(
       map(result => {
@@ -35,6 +44,9 @@ export class ApplicationService {
         this.applications = [];
         this.applications = applications;
         this.applicationsChange.next(this.applications.slice());
+        this.getLoading.next(false);
+      }, () => {
+        this.getLoading.next(false);
       })
   }
 
@@ -58,6 +70,7 @@ export class ApplicationService {
   }
 
   editData(application: Application) {
+    this.editLoading.next(true);
     const body = {
       name: application.name,
       surname: application.surname,
@@ -70,18 +83,20 @@ export class ApplicationService {
     }
     return this.http.put(`https://app-blog-f76a2-default-rtdb.firebaseio.com/application/${application.id}.json`, body)
       .pipe(
-      // tap(() => {
-      //   this.mealLoading.next(false);
-      // }, () => {
-      //   this.mealLoading.next(false);
-      // })
+      tap(() => {
+        this.editLoading.next(false);
+      }, () => {
+        this.editLoading.next(false);
+      })
     )
   }
 
   removeApplication(id: string) {
+    this.deleteLoading.next(true);
     this.http.delete(`https://app-blog-f76a2-default-rtdb.firebaseio.com/application/${id}.json`)
       .subscribe(() => {
         this.getApplications();
+        this.deleteLoading.next(false);
       }
     );
   }
