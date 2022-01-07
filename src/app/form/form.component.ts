@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Application } from '../shared/application.model';
 import { Router } from '@angular/router';
@@ -9,19 +9,17 @@ import { ApplicationService } from '../shared/application.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormComponent {
   @ViewChild('registerForm') registerForm!: NgForm;
-  textCounter = 300;
-  count = 0;
+  count = 300;
+  comments = 300;
 
   constructor(private applicationService: ApplicationService, private router: Router) {}
 
-  ngOnInit() {
-
-  }
-
   onSend() {
+    const id = Math.random().toString();
     const application = new Application(
+      id,
       this.registerForm.value.name,
       this.registerForm.value.surname,
       this.registerForm.value.patronymic,
@@ -36,12 +34,6 @@ export class FormComponent implements OnInit {
   }
 
   onCharactersCount() {
-    if (this.registerForm.value.comments.length + 1 >= this.count) {
-      this.count += 1;
-      this.textCounter -= 1;
-    } else {
-      this.count -= 1;
-      this.textCounter += 1;
-    }
+    this.comments = this.count - this.registerForm.value.comments.length;
   }
 }

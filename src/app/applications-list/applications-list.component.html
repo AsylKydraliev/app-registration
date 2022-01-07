@@ -1,0 +1,14 @@
+<div class="card m-auto mt-2 text-center col-8" *ngFor="let item of applications">
+  <div class="card-header">
+    Application
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ item.name }} {{ item.surname }} {{ item.patronymic }}</h5>
+    <p class="card-text m-0">Your phone: <strong>{{ item.phoneNumber }}</strong> </p>
+    <p class="card-text m-0">Your place of work or study: <strong>{{ item.workOrStudy }}</strong> </p>
+    <p class="card-text m-0">Gender: <strong>{{ item.gender }}</strong></p>
+    <p class="card-text m-0">Your size: <strong>{{ item.size }}</strong></p>
+    <p class="card-text m-0">Your comments: <strong>{{ item.comments }}</strong></p>
+    <a href="#" class="btn btn-primary">Edit application</a>
+  </div>
+</div>

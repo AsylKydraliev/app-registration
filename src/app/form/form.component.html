@@ -153,7 +153,7 @@
         required
         ngModel
         maxlength="300"
-        (keydown)="onCharactersCount()"
+        (keyup)="onCharactersCount()"
         #commentsText="ngModel"
       ></textarea>
       <small
@@ -163,7 +163,7 @@
       </small>
       <label for="floatingTextarea">Comments</label>
       <div class="form-text">
-        Characters: {{ textCounter }}
+        Characters: {{ comments }}
       </div>
     </div>
 
