@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Application } from '../shared/application.model';
 import { Router } from '@angular/router';
+import { ApplicationService } from '../shared/application.service';
 
 @Component({
   selector: 'app-form',
@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
   textCounter = 300;
   count = 0;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private applicationService: ApplicationService, private router: Router) {}
 
   ngOnInit() {
 
@@ -31,14 +31,11 @@ export class FormComponent implements OnInit {
       this.registerForm.value.size,
       this.registerForm.value.comments,
     )
-    this.http.post('https://app-blog-f76a2-default-rtdb.firebaseio.com/application.json', application)
-      .subscribe()
+    this.applicationService.postApplication(application);
     void this.router.navigate(['/application']);
   }
 
-  onCount() {
-    console.log(this.registerForm.value.comments.length);
-    console.log(this.count);
+  onCharactersCount() {
     if (this.registerForm.value.comments.length + 1 >= this.count) {
       this.count += 1;
       this.textCounter -= 1;
