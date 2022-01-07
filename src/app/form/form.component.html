@@ -1,5 +1,5 @@
-<div class="container">
-  <h2 class="mt-2">Register</h2>
+<div class="container mb-5">
+  <h2 class="mt-2 text-center">{{applicationId? 'Edit': 'Registration'}}</h2>
 
   <form class="col mt-4" (ngSubmit)="onSend()" #registerForm="ngForm">
     <div class="mb-3 col-5 mt-3">
@@ -63,7 +63,7 @@
       >
       <small
         *ngIf="phoneInput.touched && phoneInput.errors?.required"
-        class="form-text invalid-form-text">
+        class="form-text invalid-form-text d-block">
         Enter your phone number
       </small>
       <small
@@ -132,10 +132,10 @@
         #sizeSelect="ngModel"
       >
         <option value="">T-shirt size</option>
-        <option value="s">S</option>
-        <option value="m">M</option>
-        <option value="l">L</option>
-        <option value="xl">XL</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
       </select>
       <small
         *ngIf="sizeSelect.touched && sizeSelect.errors?.required"
@@ -175,6 +175,6 @@
       type="submit"
       class="btn btn-success"
       [disabled]="registerForm.invalid"
-    >Submit</button>
+    >{{applicationId? 'Edit application' : 'Submit'}}</button>
   </form>
 </div>
