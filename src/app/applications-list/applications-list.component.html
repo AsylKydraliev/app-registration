@@ -9,6 +9,7 @@
     <p class="card-text m-0">Gender: <strong>{{ item.gender }}</strong></p>
     <p class="card-text m-0">Your size: <strong>{{ item.size }}</strong></p>
     <p class="card-text m-0">Your comments: <strong>{{ item.comments }}</strong></p>
-    <a href="#" class="btn btn-primary">Edit application</a>
+    <a [routerLink]="[item.id]" class="btn btn-primary">Edit application</a>&nbsp;
+    <a (click)="onRemove(item.id)" class="btn btn-danger">Delete application</a>
   </div>
 </div>

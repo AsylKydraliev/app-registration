@@ -20,6 +20,10 @@ export class ApplicationsListComponent implements OnInit, OnDestroy {
     this.applicationService.getApplications();
   }
 
+  onRemove(id: string) {
+    this.applicationService.removeApplication(id);
+  }
+
   ngOnDestroy(){
     this.applicationsSubscription.unsubscribe();
   }

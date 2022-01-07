@@ -37,4 +37,52 @@ export class ApplicationService {
         this.applicationsChange.next(this.applications.slice());
       })
   }
+
+  getApplication(id: string){
+    return this.http.get<Application | null>
+    (`https://app-blog-f76a2-default-rtdb.firebaseio.com/application/${id}.json`)
+      .pipe(map(result => {
+        if(!result) return  null;
+        return new Application(
+          id,
+          result.name,
+          result.surname,
+          result.patronymic,
+          result.phoneNumber,
+          result.workOrStudy,
+          result.gender,
+          result.size,
+          result.comments
+          );
+      }))
+  }
+
+  editData(application: Application) {
+    const body = {
+      name: application.name,
+      surname: application.surname,
+      patronymic: application.patronymic,
+      phoneNumber: application.phoneNumber,
+      workOrStudy: application.workOrStudy,
+      gender: application.gender,
+      size: application.size,
+      comments: application.comments
+    }
+    return this.http.put(`https://app-blog-f76a2-default-rtdb.firebaseio.com/application/${application.id}.json`, body)
+      .pipe(
+      // tap(() => {
+      //   this.mealLoading.next(false);
+      // }, () => {
+      //   this.mealLoading.next(false);
+      // })
+    )
+  }
+
+  removeApplication(id: string) {
+    this.http.delete(`https://app-blog-f76a2-default-rtdb.firebaseio.com/application/${id}.json`)
+      .subscribe(() => {
+        this.getApplications();
+      }
+    );
+  }
 }
